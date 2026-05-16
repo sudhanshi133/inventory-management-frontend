@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Button, Modal, Input, Select, useToast, ConfirmDialog } from '../components/ui';
+import { Card, Button, Modal, useToast, ConfirmDialog } from '../components/ui';
 import { ProductForm } from '../components/ProductForm';
 import { StockAdjustmentModal } from '../components/StockAdjustmentModal';
 import { productService } from '../services/productService';
@@ -26,7 +26,6 @@ export const Products: React.FC = () => {
   // Pagination state
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
-  const [totalElements, setTotalElements] = useState(0);
   const pageSize = 10;
 
   useEffect(() => {
@@ -45,7 +44,6 @@ export const Products: React.FC = () => {
       });
       setProducts(response.content);
       setTotalPages(response.totalPages);
-      setTotalElements(response.totalElements);
     } catch (error) {
       console.error('Failed to load products:', error);
       showToast('error', 'Failed to load products');
