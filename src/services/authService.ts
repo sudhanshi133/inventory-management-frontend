@@ -1,6 +1,4 @@
-import axios from 'axios';
-
-const API_URL = 'http://localhost:8080/api/auth';
+import api from './api';
 
 export interface LoginRequest {
   username: string;
@@ -26,22 +24,22 @@ export interface ResetPasswordRequest {
 
 export const authService = {
   login: async (data: LoginRequest): Promise<LoginResponse> => {
-    const response = await axios.post(`${API_URL}/login`, data);
+    const response = await api.post('/auth/login', data);
     return response.data;
   },
 
   forgotPassword: async (data: ForgotPasswordRequest): Promise<{ message: string; resetToken: string }> => {
-    const response = await axios.post(`${API_URL}/forgot-password`, data);
+    const response = await api.post('/auth/forgot-password', data);
     return response.data;
   },
 
   resetPassword: async (data: ResetPasswordRequest): Promise<{ message: string }> => {
-    const response = await axios.post(`${API_URL}/reset-password`, data);
+    const response = await api.post('/auth/reset-password', data);
     return response.data;
   },
 
   logout: async (): Promise<void> => {
-    await axios.post(`${API_URL}/logout`);
+    await api.post('/auth/logout');
     localStorage.removeItem('user');
   },
 };
